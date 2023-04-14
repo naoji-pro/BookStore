@@ -41,12 +41,6 @@ body {
     border: 1px solid #ccc;
   }
 
-  .delete {
-    width: 33%;
-    border-collapse: collapse;
-    margin: 0 auto; /* 左右のマージンを自動で調整して中央に寄せる */
-  }
-
   input {
     display: block;
     text-align: center;
