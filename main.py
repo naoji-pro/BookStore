@@ -1,6 +1,7 @@
 from flaskr import app
 from flask import render_template, request, redirect, url_for
 import sqlite3
+from datetime import datetime
 DATEBASE='datebase.db'
 
 @app.route('/')
@@ -29,7 +30,6 @@ def register():
     title=request.form['title']
     price=request.form['price']
     arrival_day=request.form['arrival_day']
-
     con = sqlite3.connect(DATEBASE)
     con.execute('INSERT INTO books VAlUES(?, ?, ?)',
                 [title, price, arrival_day])
@@ -40,9 +40,12 @@ def register():
 @app.route('/delete', methods=['POST'])
 def delete():
     title=request.form['title']
+    price=request.form['price']
+    arrival_day=request.form['arrival_day']
     
     con = sqlite3.connect(DATEBASE)
-    con.execute('DELETE FROM books WHERE title=?', (title,) )  #sql文を実行
+    con.execute("DELETE FROM books WHERE title= ? AND price = ? AND arrival_day = ?",
+                (title, price,arrival_day))  #sql文を実行
     con.commit()
     con.close()      #データベースを閉じる
     return redirect(url_for('index'))
